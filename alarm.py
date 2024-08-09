@@ -68,10 +68,8 @@ def trigger_shock(api_key, shock_id, intensity, duration):
         'customName': 'AlarmShock'
     }
     
-    print("Payload:", payload)
     response = requests.post(url=url, headers=headers, json=payload)
     
-    print("Response status code:", response.status_code)
     if response.status_code == 200:
         print('Shock sent successfully.')
     else:
@@ -79,9 +77,11 @@ def trigger_shock(api_key, shock_id, intensity, duration):
 
 def set_alarm(alarm_time, api_key, shock_id, intensity, duration):
     """Sets an alarm for a specific time and shows a countdown."""
+    duration_sec = duration / 1000
+    
     print(f"Alarm set for {alarm_time.strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Shock intensity: {intensity}")
-    print(f"Shock duration: {duration} milliseconds")
+    print(f"Shock duration: {duration_sec:.1f} seconds")
     
     while True:
         now = datetime.now()
@@ -103,8 +103,6 @@ if __name__ == '__main__':
     SHOCK_API_KEY, SHOCK_ID = load_env()
     
     if not SHOCK_API_KEY or not SHOCK_ID:
-        print("Configuration not found in .env file.")
-        
         SHOCK_API_KEY = get_user_input("Enter your OpenShock API key: ")
         SHOCK_ID = get_user_input("Enter your OpenShock Shocker ID: ")
         
@@ -132,5 +130,7 @@ if __name__ == '__main__':
     
     if alarm_time < datetime.now():
         alarm_time += timedelta(days=1)
+    
+    os.system('cls' if os.name == 'nt' else 'clear')
     
     set_alarm(alarm_time, SHOCK_API_KEY, SHOCK_ID, intensity, duration_ms)
