@@ -4,8 +4,10 @@ import requests
 from datetime import datetime, timedelta
 import platform
 from dotenv import load_dotenv
+import configparser
 
 ENV_FILE = os.path.join(os.path.dirname(__file__), '.env')
+CONFIG_FILE = os.path.join(os.path.dirname(__file__), 'config.txt')
 
 def get_user_input(prompt, validation_fn=None, error_message=None):
     """Prompts the user for input and validates it using the provided function."""
@@ -34,17 +36,33 @@ def load_env():
         return api_key, shock_id
     return None, None
 
-def play_alarm_sound():
-    """Plays an alarm sound if the platform supports it."""
-    if platform.system() == 'Windows':
-        import winsound
-        duration = 1000 
-        freq = 440  
-        winsound.Beep(freq, duration)
-    elif platform.system() == 'Darwin':
-        os.system('say "Alarm ringing"')
-    else:
-        print('\a') 
+def load_config():
+    """Loads saved alarms from the config.txt file."""
+    alarms = {}
+    config = configparser.ConfigParser()
+    if os.path.exists(CONFIG_FILE):
+        config.read(CONFIG_FILE)
+        for section in config.sections():
+            alarm_time = datetime.strptime(config[section]['time'], '%Y-%m-%d %H:%M:%S')
+            intensity = int(config[section]['intensity'])
+            duration = int(config[section]['duration'])
+            alarms[section] = (alarm_time, intensity, duration)
+    return alarms
+
+def save_alarm_to_config(alarm_name, alarm_time, intensity, duration):
+    """Saves an alarm to the config.txt file."""
+    config = configparser.ConfigParser()
+    if os.path.exists(CONFIG_FILE):
+        config.read(CONFIG_FILE)
+
+    config[alarm_name] = {
+        'time': alarm_time.strftime('%Y-%m-%d %H:%M:%S'),
+        'intensity': str(intensity),
+        'duration': str(duration)
+    }
+
+    with open(CONFIG_FILE, 'w') as configfile:
+        config.write(configfile)
 
 def trigger_shock(api_key, shock_id, intensity, duration):
     """Sends a shock command to the OpenShock API."""
@@ -75,28 +93,31 @@ def trigger_shock(api_key, shock_id, intensity, duration):
     else:
         print(f"Failed to send shock. Response: {response.content}")
 
-def set_alarm(alarm_time, api_key, shock_id, intensity, duration):
-    """Sets an alarm for a specific time and shows a countdown."""
-    duration_sec = duration / 1000
-    
-    print(f"Alarm set for {alarm_time.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"Shock intensity: {intensity}")
-    print(f"Shock duration: {duration_sec:.1f} seconds")
-    
-    while True:
+def set_alarms(alarms, api_key, shock_id):
+    """Sets multiple alarms and monitors them."""
+    while alarms:
         now = datetime.now()
-        if now >= alarm_time:
-            print("Alarm time reached! Triggering shock...")
-            play_alarm_sound()
-            trigger_shock(api_key, shock_id, intensity, duration)
-            break
+        for name, (alarm_time, intensity, duration) in list(alarms.items()):
+            if now >= alarm_time:
+                print(f"Alarm '{name}' time reached at {alarm_time.strftime('%Y-%m-%d %H:%M:%S')}! Triggering shock...")
+                trigger_shock(api_key, shock_id, intensity, duration)
+                del alarms[name]
+                break
 
-        remaining_time = alarm_time - now
-        countdown_seconds = remaining_time.total_seconds()
-        hours, remainder = divmod(countdown_seconds, 3600)
-        minutes, seconds = divmod(remainder, 60)
-        
-        print(f"Time until shock: {int(hours):02}:{int(minutes):02}:{int(seconds):02}", end='\r')
+        if alarms:
+            print("\033c", end="")
+            
+            print("\nCurrent Alarms:")
+            for name, (alarm_time, intensity, duration) in alarms.items():
+                remaining_time = alarm_time - now
+                countdown_seconds = remaining_time.total_seconds()
+                hours, remainder = divmod(countdown_seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                
+                print(f"{name}: Time until shock: {int(hours):02}:{int(minutes):02}:{int(seconds):02} | "
+                      f"Alarm Time: {alarm_time.strftime('%Y-%m-%d %H:%M:%S')} | "
+                      f"Intensity: {intensity} | Duration: {duration / 1000:.1f} seconds")
+                
         time.sleep(1)
 
 if __name__ == '__main__':
@@ -107,30 +128,63 @@ if __name__ == '__main__':
         SHOCK_ID = get_user_input("Enter your OpenShock Shocker ID: ")
         
         save_env(SHOCK_API_KEY, SHOCK_ID)
-    
-    intensity = int(get_user_input(
-        "Enter shock intensity (0-100): ",
-        lambda x: x.isdigit() and 0 <= int(x) <= 100,
-        "Please enter a valid number between 0 and 100."
-    ))
-    
-    duration_sec = float(get_user_input(
-        "Enter shock duration in seconds (0.3-30): ",
-        lambda x: x.replace('.', '', 1).isdigit() and 0.3 <= float(x) <= 30,
-        "Please enter a valid number between 0.3 and 30."
-    ))
-    duration_ms = int(duration_sec * 1000)
 
-    alarm_time_str = get_user_input("Enter the alarm time (HH:MM format): ")
-    alarm_time = datetime.strptime(alarm_time_str, "%H:%M").replace(
-        year=datetime.now().year,
-        month=datetime.now().month,
-        day=datetime.now().day
-    )
+    saved_alarms = load_config()
     
-    if alarm_time < datetime.now():
-        alarm_time += timedelta(days=1)
+    selected_alarms = {}
+    if saved_alarms:
+        print("Saved alarms:")
+        for name in saved_alarms:
+            print(f"- {name}")
+        
+        load_saved = get_user_input("Do you want to load a saved alarm? (yes/no): ").strip().lower()
+        if load_saved == 'yes':
+            while True:
+                alarm_name = get_user_input("Enter the saved alarm name to load: ")
+                if alarm_name in saved_alarms:
+                    selected_alarms[alarm_name] = saved_alarms[alarm_name]
+                    more_load = get_user_input("Do you want to load another saved alarm? (yes/no): ").strip().lower()
+                    if more_load != 'yes':
+                        break
+                else:
+                    print("Alarm not found. Please enter a valid name.")
+
+    alarms = selected_alarms
     
-    os.system('cls' if os.name == 'nt' else 'clear')
-    
-    set_alarm(alarm_time, SHOCK_API_KEY, SHOCK_ID, intensity, duration_ms)
+    if not selected_alarms or get_user_input("Do you want to set a new alarm? (yes/no): ").strip().lower() == 'yes':
+        while True:
+            intensity = int(get_user_input(
+                "Enter shock intensity (0-100): ",
+                lambda x: x.isdigit() and 0 <= int(x) <= 100,
+                "Please enter a valid number between 0 and 100."
+            ))
+            
+            duration_sec = float(get_user_input(
+                "Enter shock duration in seconds (0.3-30): ",
+                lambda x: x.replace('.', '', 1).isdigit() and 0.3 <= float(x) <= 30,
+                "Please enter a valid number between 0.3 and 30."
+            ))
+            duration_ms = int(duration_sec * 1000)
+
+            alarm_time_str = get_user_input("Enter the alarm time (HH:MM format): ")
+            alarm_time = datetime.strptime(alarm_time_str, "%H:%M").replace(
+                year=datetime.now().year,
+                month=datetime.now().month,
+                day=datetime.now().day
+            )
+            
+            if alarm_time < datetime.now():
+                alarm_time += timedelta(days=1)
+            
+            alarm_name = get_user_input("Enter a name for this alarm: ")
+            alarms[alarm_name] = (alarm_time, intensity, duration_ms)
+
+            save_alarm_option = get_user_input("Do you want to save this alarm? (yes/no): ").strip().lower()
+            if save_alarm_option == 'yes':
+                save_alarm_to_config(alarm_name, alarm_time, intensity, duration_ms)
+
+            more_alarms = get_user_input("Do you want to set another alarm? (yes/no): ").strip().lower()
+            if more_alarms != 'yes':
+                break
+
+    set_alarms(alarms, SHOCK_API_KEY, SHOCK_ID)
