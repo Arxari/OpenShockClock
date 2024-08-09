@@ -24,6 +24,6 @@
 - [ ] Create a GUI for desktop platforms
 
 - [x] Add ability for multiple alarms
-- [ ] Add ability to disable ringtone and add support for custom ringtones
+- [ ] ~~Add ability to disable ringtone and add support for custom ringtones~~
 
 Massive thank you to [DexFolf](https://github.com/DexFolf) and their [OpenShock Telegram Bot](https://github.com/DexFolf/OpenShockTelegramBot).
