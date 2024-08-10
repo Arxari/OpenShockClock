@@ -95,29 +95,29 @@ def trigger_shock(api_key, shock_id, intensity, duration):
 
 def set_alarms(alarms, api_key, shock_id):
     """Sets multiple alarms and monitors them."""
-    while alarms:
+    while True:
         now = datetime.now()
         for name, (alarm_time, intensity, duration) in list(alarms.items()):
             if now >= alarm_time:
                 print(f"Alarm '{name}' time reached at {alarm_time.strftime('%Y-%m-%d %H:%M:%S')}! Triggering shock...")
                 trigger_shock(api_key, shock_id, intensity, duration)
-                del alarms[name]
-                break
+                
+                alarms[name] = (alarm_time + timedelta(days=1), intensity, duration)
+                print(f"Alarm '{name}' has been reset for the next day at {alarms[name][0].strftime('%Y-%m-%d %H:%M:%S')}.")
 
-        if alarms:
-            print("\033c", end="")
+        print("\033c", end="")
+
+        print("\nCurrent Alarms:")
+        for name, (alarm_time, intensity, duration) in alarms.items():
+            remaining_time = alarm_time - now
+            countdown_seconds = remaining_time.total_seconds()
+            hours, remainder = divmod(countdown_seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
             
-            print("\nCurrent Alarms:")
-            for name, (alarm_time, intensity, duration) in alarms.items():
-                remaining_time = alarm_time - now
-                countdown_seconds = remaining_time.total_seconds()
-                hours, remainder = divmod(countdown_seconds, 3600)
-                minutes, seconds = divmod(remainder, 60)
-                
-                print(f"{name}: Time until shock: {int(hours):02}:{int(minutes):02}:{int(seconds):02} | "
-                      f"Alarm Time: {alarm_time.strftime('%Y-%m-%d %H:%M:%S')} | "
-                      f"Intensity: {intensity} | Duration: {duration / 1000:.1f} seconds")
-                
+            print(f"{name}: Time until shock: {int(hours):02}:{int(minutes):02}:{int(seconds):02} | "
+                  f"Alarm Time: {alarm_time.strftime('%Y-%m-%d %H:%M:%S')} | "
+                  f"Intensity: {intensity} | Duration: {duration / 1000:.1f} seconds")
+            
         time.sleep(1)
 
 if __name__ == '__main__':
