@@ -8,7 +8,7 @@
 - Go trough the text promps
 - And you're good to go :D
 #### Windows
-- [ ] Binary file in the works
+- [ ] Executable file in the works
 #### MacOS
 - Go to the releases page
 - Download the source code .zip
