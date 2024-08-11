@@ -1,5 +1,8 @@
 ### How to use
 #### Linux
+- Make sure you have python installed, you can do this on Ubuntu/Debian/Mint by doing ```sudo apt install python3``` or ```sudo dnf install python3```
+- After you've made sure you have python install
+- -
 - Go to the releases page
 - Download the source code .zip
 - After it's downloaded unzip it
