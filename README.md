@@ -2,7 +2,7 @@
 #### Linux
 - Make sure you have python installed, you can do this on Ubuntu/Debian/Mint by doing ```sudo apt install python3``` or on Fedora by doing ```sudo dnf install python3``` or Arch ```sudo pacman -Sy python python-pip```
 - After you've made sure you have python install
-- -
+- ‎ 
 - Go to the releases page
 - Download the source code .zip
 - After it's downloaded unzip it
@@ -16,7 +16,7 @@
 - Make sure you have python installed, you can do this by going to the Microsoft Store and downloading Python 3.11
 - Also install Git, you can do so from [here](https://git-scm.com/download/win), download the .exe and go trough the install process
 - After you've made sure you have python and git installed
-- -
+- ‎ 
 - Go to the releases page
 - Download the source code .zip
 - After it's downloaded unzip it
