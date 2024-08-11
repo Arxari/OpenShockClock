@@ -4,7 +4,7 @@
 - Download the source code .zip
 - After it's downloaded unzip it
 - Copy the location of linux-run.sh (you can do this in GNOME files by pressing ctrl + c and in KDE Dolphin by pressing ctrl +  alt + c)
-- Open your terminal and type ```chmod +x``` and after it paste the location of your linux-run.sh (if you downloaded the zip to your Downloads folder it should be ```/home/yourusername/Downloads/OpenShockClock-0.8.2fff/linux-run.sh```
+- Open your terminal and type ```chmod +x``` and after it paste the location of your linux-run.sh (if you downloaded the zip to your Downloads folder it should be ```/home/yourusername/Downloads/OpenShockClock-0.8.3/linux-run.sh```
 - After that paste your linux-run.sh location again
 - Go trough the text promps
 - And you're good to go :D
