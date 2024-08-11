@@ -26,7 +26,7 @@
 - Ta-da!
 - To run it again just run the run.sh file again
 #### MacOS
-- Make sure you have python installed, you can install it from (here)[]
+- Make sure you have python installed, you can install it from (here)[https://www.python.org/downloads/macos/]
 - After you've made sure you have python installed
 - ‎ 
 - Go to the releases page
