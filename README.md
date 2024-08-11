@@ -10,6 +10,8 @@
 - And you're good to go :D
 - To use the script again simply paste the linux-run.sh location into your terminal
 #### Windows
+- Make sure you have python installed, you can do this by going to the Microsoft Store and downloading Python 3.11
+- After you've made sure you have python installed
 - Go to the releases page
 - Download the source code .zip
 - After it's downloaded unzip it
