@@ -13,7 +13,7 @@
 - And you're good to go :D
 - To use the script again simply paste the linux-run.sh location into your terminal and hit enter
 #### Windows
-- Make sure you have python installed, you can do this by going to the Microsoft Store and downloading Python 3.11
+- Make sure you have python installed, you can do this by going to the Microsoft Store and downloading Python **3.11**
 - Also install Git, you can do so from [here](https://git-scm.com/download/win), download the .exe and go trough the install process
 - After you've made sure you have python and git installed
 - ‎ 
