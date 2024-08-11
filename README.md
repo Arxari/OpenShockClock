@@ -1,7 +1,7 @@
 ### How to use
 #### Linux
 - Make sure you have python installed, you can do this on Ubuntu/Debian/Mint by doing ```sudo apt install python3``` or on Fedora by doing ```sudo dnf install python3``` or Arch ```sudo pacman -Sy python python-pip```
-- After you've made sure you have python install
+- After you've made sure you have python installed
 - ‎ 
 - Go to the releases page
 - Download the source code .zip
@@ -26,6 +26,9 @@
 - Ta-da!
 - To run it again just run the run.sh file again
 #### MacOS
+- Make sure you have python installed, you can install it from (here)[]
+- After you've made sure you have python installed
+- ‎ 
 - Go to the releases page
 - Download the source code .zip
 - After it's downloaded go into Finder and unzip it
