@@ -14,14 +14,17 @@
 - To use the script again simply paste the linux-run.sh location into your terminal
 #### Windows
 - Make sure you have python installed, you can do this by going to the Microsoft Store and downloading Python 3.11
-- After you've made sure you have python installed
+- Also install Git, you can do so from [here](https://git-scm.com/download/win), download the .exe and go trough the install process
+- After you've made sure you have python and git installed
 - -
 - Go to the releases page
 - Download the source code .zip
 - After it's downloaded unzip it
 - Go into the unzipped folder
 - Double click run.sh
+- If it opens in the wrong app, right click it and choose Open In --> Git for Windows
 - Ta-da!
+- To run it again just run the run.sh file again
 #### MacOS
 - Go to the releases page
 - Download the source code .zip
