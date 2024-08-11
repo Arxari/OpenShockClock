@@ -1,6 +1,6 @@
 ### How to use
 #### Linux
-- Make sure you have python installed, you can do this on Ubuntu/Debian/Mint by doing ```sudo apt install python3``` or on Fedora by doing```sudo dnf install python3```
+- Make sure you have python installed, you can do this on Ubuntu/Debian/Mint by doing ```sudo apt install python3``` or on Fedora by doing```sudo dnf install python3``` or Arch ```sudo pacman -Sy python python-pip```
 - After you've made sure you have python install
 - -
 - Go to the releases page
