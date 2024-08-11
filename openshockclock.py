@@ -83,7 +83,7 @@ def trigger_shock(api_key, shock_id, intensity, duration):
             'duration': duration,
             'exclusive': True
         }],
-        'customName': 'AlarmShock'
+        'customName': 'OpenShockClock'
     }
     
     response = requests.post(url=url, headers=headers, json=payload)
@@ -124,7 +124,14 @@ if __name__ == '__main__':
     SHOCK_API_KEY, SHOCK_ID = load_env()
     
     if not SHOCK_API_KEY or not SHOCK_ID:
+        print("To get your OpenShock API key, go to openshock.app, click the hamburger (three lines) menu, "
+              "go to 'API Tokens', click the green + icon, name the API 'Alarm', and copy the code.")
+        
         SHOCK_API_KEY = get_user_input("Enter your OpenShock API key: ")
+
+        print("To get your OpenShock Shocker ID, go to openshock.app, click the hamburger (three lines) menu, "
+              "go to 'Shockers', click the three vertical dots next to your device, select 'edit', and copy the ID.")
+        
         SHOCK_ID = get_user_input("Enter your OpenShock Shocker ID: ")
         
         save_env(SHOCK_API_KEY, SHOCK_ID)
