@@ -3,10 +3,12 @@
 - Go to the releases page
 - Download the source code .zip
 - After it's downloaded unzip it
-- Copy the location of openshockclock.py (you can do this in GNOME files by doing right click and clicking copy or pressing ctrl + c)
-- Open your terminal and type ```python3 path/to/your/openshockclock.py``` or ```python3``` and paste the location, press enter to run it
+- Copy the location of linux-run.sh (you can do this in GNOME files by pressing ctrl + c and in KDE Dolphin by pressing ctrl +  alt + c)
+- Open your terminal and type ```chmod +x``` and after it paste the location of your linux-run.sh (if you downloaded the zip to your Downloads folder it should be ```/home/yourusername/Downloads/OpenShockClock-0.8.2fff/linux-run.sh```
+- After that paste your linux-run.sh location again
 - Go trough the text promps
 - And you're good to go :D
+- To use the script again simply paste the linux-run.sh location into your terminal
 #### Windows
 - [ ] Executable file in the works
 #### MacOS
