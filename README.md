@@ -10,7 +10,12 @@
 - And you're good to go :D
 - To use the script again simply paste the linux-run.sh location into your terminal
 #### Windows
-- [ ] Executable file in the works
+- Go to the releases page
+- Download the source code .zip
+- After it's downloaded unzip it
+- Go into the unzipped folder
+- Double click run.sh
+- Ta-da!
 #### MacOS
 - Go to the releases page
 - Download the source code .zip
