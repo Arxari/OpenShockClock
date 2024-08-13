@@ -12,7 +12,7 @@ CONFIG_FILE = os.path.join(os.path.dirname(__file__), 'config.txt')
 def get_user_input(prompt, validation_fn=None, error_message=None):
     """Prompts the user for input and validates it using the provided function."""
     while True:
-        user_input = input(prompt)
+        user_input = input(prompt).strip()
         if validation_fn:
             if validation_fn(user_input):
                 return user_input
@@ -141,24 +141,28 @@ if __name__ == '__main__':
     selected_alarms = {}
     if saved_alarms:
         print("Saved alarms:")
-        for name in saved_alarms:
-            print(f"- {name}")
+        for idx, name in enumerate(saved_alarms, 1):
+            print(f"{idx}. {name}")
         
         load_saved = get_user_input("Do you want to load a saved alarm? (yes/no): ").strip().lower()
-        if load_saved == 'yes':
+        if load_saved in ['y', 'yes']:
             while True:
-                alarm_name = get_user_input("Enter the saved alarm name to load: ")
-                if alarm_name in saved_alarms:
+                alarm_identifier = get_user_input("Enter the number or name of the saved alarm to load: ")
+                if alarm_identifier.isdigit() and 1 <= int(alarm_identifier) <= len(saved_alarms):
+                    alarm_name = list(saved_alarms.keys())[int(alarm_identifier) - 1]
                     selected_alarms[alarm_name] = saved_alarms[alarm_name]
-                    more_load = get_user_input("Do you want to load another saved alarm? (yes/no): ").strip().lower()
-                    if more_load != 'yes':
-                        break
+                elif alarm_identifier in saved_alarms:
+                    selected_alarms[alarm_identifier] = saved_alarms[alarm_identifier]
                 else:
-                    print("Alarm not found. Please enter a valid name.")
+                    print("Invalid selection. Please enter a valid number or name.")
+
+                more_load = get_user_input("Do you want to load another saved alarm? (yes/no): ").strip().lower()
+                if more_load not in ['y', 'yes']:
+                    break
 
     alarms = selected_alarms
     
-    if not selected_alarms or get_user_input("Do you want to set a new alarm? (yes/no): ").strip().lower() == 'yes':
+    if not selected_alarms or get_user_input("Do you want to set a new alarm? (yes/no): ").strip().lower() in ['y', 'yes']:
         while True:
             intensity = int(get_user_input(
                 "Enter shock intensity (0-100): ",
@@ -187,11 +191,11 @@ if __name__ == '__main__':
             alarms[alarm_name] = (alarm_time, intensity, duration_ms)
 
             save_alarm_option = get_user_input("Do you want to save this alarm? (yes/no): ").strip().lower()
-            if save_alarm_option == 'yes':
+            if save_alarm_option in ['y', 'yes']:
                 save_alarm_to_config(alarm_name, alarm_time, intensity, duration_ms)
 
             more_alarms = get_user_input("Do you want to set another alarm? (yes/no): ").strip().lower()
-            if more_alarms != 'yes':
+            if more_alarms not in ['y', 'yes']:
                 break
 
     set_alarms(alarms, SHOCK_API_KEY, SHOCK_ID)
