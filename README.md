@@ -30,7 +30,7 @@
 - ‎
 - Sometimes it might take upto 30 seconds to load the alarms, sadly there is not much I can do for that, so just don't panic and let it load
 #### MacOS
-- Make sure you have python installed, you can install it from (here)[https://www.python.org/downloads/macos/], make sure to select pytyon 3.11.9
+- Make sure you have python installed, you can install it from [here](https://www.python.org/downloads/macos), make sure to select pytyon 3.11.9
 - After you've made sure you have python installed
 - ‎ 
 - Go to the releases page
