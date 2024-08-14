@@ -30,15 +30,16 @@
 - ‎
 - Sometimes it might take upto 30 seconds to load the alarms, sadly there is not much I can do for that, so just don't panic and let it load
 #### MacOS
-- Make sure you have python installed, you can install it from (here)[https://www.python.org/downloads/macos/]
+- Make sure you have python installed, you can install it from (here)[https://www.python.org/downloads/macos/], make sure to select pytyon 3.11.9
 - After you've made sure you have python installed
 - ‎ 
 - Go to the releases page
 - Download the source code .zip
 - After it's downloaded go into Finder and unzip it
 - Open the unzipped folder
-- Right click on ```openshockclock.py``` and select “Get Info”
-- Click "Open with" and select "Python Launcher"
+- Copy the location of run.sh
+- Open your terminal and write ```chmod +x``` and paste your run.sh location
+-Paste your run.sh and press enter to run the program
 - Follow the text prompts in your terminal and you should be good to go :D
   
 ### Planned Features / Roadmap
