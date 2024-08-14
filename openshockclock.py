@@ -101,6 +101,10 @@ def set_alarms(alarms, api_key, shock_id):
             if now >= alarm_time:
                 print(f"Alarm '{name}' time reached at {alarm_time.strftime('%Y-%m-%d %H:%M:%S')}! Triggering shock...")
                 trigger_shock(api_key, shock_id, intensity, duration)
+
+#               _-^-_
+#               | | |
+#               —————
                 
                 alarms[name] = (alarm_time + timedelta(days=1), intensity, duration)
                 print(f"Alarm '{name}' has been reset for the next day at {alarms[name][0].strftime('%Y-%m-%d %H:%M:%S')}.")
