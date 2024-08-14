@@ -1,10 +1,43 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
-
-PYTHON_SCRIPT="$SCRIPT_DIR/openshockclock.py"
-REQUIREMENTS_FILE="$SCRIPT_DIR/requirements.txt"
+PYTHON_SCRIPT="openshockclock.py"
+REQUIREMENTS_FILE="requirements.txt"
 VENV_DIR="$SCRIPT_DIR/venv"
+REPO_URL="https://github.com/arxari/openshockclock.git" 
+BRANCH="main"
+
+PRESERVE_FILES=(".env" "config.txt")
+
+update_script() {
+    echo "Updating script from the repository..."
+    
+    TEMP_DIR=$(mktemp -d)
+
+    if [ ! -d "$TEMP_DIR" ]; then
+        echo "Failed to create temporary directory." >&2
+        exit 1
+    fi
+
+    git clone --branch "$BRANCH" "$REPO_URL" "$TEMP_DIR"
+
+    if [ $? -ne 0 ]; then
+        echo "Failed to clone repository." >&2
+        rm -rf "$TEMP_DIR"
+        exit 1
+    fi
+
+    for file in "$TEMP_DIR"/*; do
+        filename=$(basename "$file")
+        if [[ ! " ${PRESERVE_FILES[@]} " =~ " ${filename} " ]]; then
+            cp -r "$file" "$SCRIPT_DIR"
+        fi
+    done
+
+    rm -rf "$TEMP_DIR"
+}
+
+update_script
 
 if [ ! -d "$VENV_DIR" ]; then
     echo "Creating a virtual environment..."
