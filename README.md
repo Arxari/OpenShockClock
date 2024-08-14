@@ -4,7 +4,7 @@
 - After you've made sure you have python installed
 - ‎ 
 - Go to the releases page
-- Download the source code .zip from the latest release 
+- Download the source code .zip from the latest release [here](https://github.com/Arxari/OpenShockClock/releases/latest)
 - After it's downloaded unzip it
 - Copy the location of run.sh (you can do this in GNOME files by pressing ctrl + c and in KDE Dolphin by pressing ctrl +  alt + c)
 - Open your terminal and type ```chmod +x``` and after it paste the location of your run.sh (if you downloaded the zip to your Downloads folder it should be ```/home/yourusername/Downloads/OpenShockClock-versionnunber/run.sh```)
