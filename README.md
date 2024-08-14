@@ -12,7 +12,7 @@
 - Go trough the text promps
 - And you're good to go :D
 - To use the script again simply paste the run.sh location into your terminal and hit enter
-#### Windows
+#### Windows (use version  [v0.8.4 - Ronalds](https://github.com/Arxari/OpenShockClock/releases/tag/v0.8.4)
 - Make sure you have python installed, you can do this by going to the Microsoft Store and downloading Python **3.11**
 - Also install Git, you can do so from [here](https://git-scm.com/download/win), download the .exe and go trough the install process
 - After you've made sure you have python and git installed
