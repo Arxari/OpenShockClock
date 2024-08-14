@@ -6,12 +6,12 @@
 - Go to the releases page
 - Download the source code .zip
 - After it's downloaded unzip it
-- Copy the location of linux-run.sh (you can do this in GNOME files by pressing ctrl + c and in KDE Dolphin by pressing ctrl +  alt + c)
-- Open your terminal and type ```chmod +x``` and after it paste the location of your linux-run.sh (if you downloaded the zip to your Downloads folder it should be ```/home/yourusername/Downloads/OpenShockClock-0.8.3/linux-run.sh```)
-- After that paste your linux-run.sh location again and hit enter
+- Copy the location of run.sh (you can do this in GNOME files by pressing ctrl + c and in KDE Dolphin by pressing ctrl +  alt + c)
+- Open your terminal and type ```chmod +x``` and after it paste the location of your run.sh (if you downloaded the zip to your Downloads folder it should be ```/home/yourusername/Downloads/OpenShockClock-versionnunber/run.sh```)
+- After that paste your run.sh location again and hit enter
 - Go trough the text promps
 - And you're good to go :D
-- To use the script again simply paste the linux-run.sh location into your terminal and hit enter
+- To use the script again simply paste the run.sh location into your terminal and hit enter
 #### Windows
 - Make sure you have python installed, you can do this by going to the Microsoft Store and downloading Python **3.11**
 - Also install Git, you can do so from [here](https://git-scm.com/download/win), download the .exe and go trough the install process
