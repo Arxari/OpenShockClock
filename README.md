@@ -34,7 +34,7 @@
 - After you've made sure you have python installed
 - ‎ 
 - Go to the releases page
-- Download the source code .zip
+- Download the source code .zip from the latest release [here](https://github.com/Arxari/OpenShockClock/releases/latest)
 - After it's downloaded go into Finder and unzip it
 - Open the unzipped folder
 - Copy the location of run.sh
