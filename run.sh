@@ -4,10 +4,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 PYTHON_SCRIPT="openshockclock.py"
 REQUIREMENTS_FILE="requirements.txt"
 VENV_DIR="$SCRIPT_DIR/venv"
-REPO_URL="https://github.com/arxari/openshockclock.git" 
+REPO_URL="https://github.com/arxari/openshockclock.git"
 BRANCH="main"
 
-PRESERVE_FILES=(".env" "config.txt")
+PRESERVE_FILES=(".env" "config.txt" "run.sh")
 
 update_script() {
     echo "Updating script from the repository..."
@@ -30,6 +30,7 @@ update_script() {
     for file in "$TEMP_DIR"/*; do
         filename=$(basename "$file")
         if [[ ! " ${PRESERVE_FILES[@]} " =~ " ${filename} " ]]; then
+            echo "Copying $filename to $SCRIPT_DIR"
             cp -r "$file" "$SCRIPT_DIR"
         fi
     done
@@ -46,9 +47,9 @@ fi
 
 source "$VENV_DIR/bin/activate"
 
-if [ -f "$REQUIREMENTS_FILE" ]; then
+if [ -f "$SCRIPT_DIR/$REQUIREMENTS_FILE" ]; then
     echo "Installing packages from requirements.txt..."
-    pip install -r "$REQUIREMENTS_FILE"
+    pip install -r "$SCRIPT_DIR/$REQUIREMENTS_FILE"
 
     if [ $? -ne 0 ]; then
         echo "Failed to install packages." >&2
@@ -63,7 +64,7 @@ fi
 
 clear
 
-python "$PYTHON_SCRIPT"
+python3 "$SCRIPT_DIR/$PYTHON_SCRIPT"
 
 if [ $? -ne 0 ]; then
     echo "The Python script encountered an error." >&2
