@@ -12,7 +12,7 @@
 - Go trough the text promps
 - And you're good to go :D
 - To use the script again simply paste the linux-run.sh location into your terminal and hit enter
-#### Windows (might be broken)
+#### Windows
 - Make sure you have python installed, you can do this by going to the Microsoft Store and downloading Python **3.11**
 - Also install Git, you can do so from [here](https://git-scm.com/download/win), download the .exe and go trough the install process
 - After you've made sure you have python and git installed
@@ -26,7 +26,9 @@
 - Ta-da!
 - To run it again just run the run.sh file again
 - ‎
-- When run.sh updates the program, the window will close so you have to re-run it again to use the updated version 
+- When run.sh updates the program, the window will close so you have to re-run it again to use the updated version
+- ‎
+- Sometimes it might take upto 30 seconds to load the alarms, sadly there is not much I can do for that, so just don't panic and let it load
 #### MacOS
 - Make sure you have python installed, you can install it from (here)[https://www.python.org/downloads/macos/]
 - After you've made sure you have python installed
