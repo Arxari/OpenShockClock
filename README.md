@@ -43,7 +43,7 @@
 - Follow the text prompts in your terminal and you should be good to go :D
   
 ### Planned Features / Roadmap
-- [ ] Release prebult binaries for Windows, MacOS and Linux
+- [ ] Release prebult binaries for Windows (.bat or .exe), MacOS (idk) and Linux (AUR)
 - [ ] Port to mobile as a GUI app
 - [ ] Create a GUI for desktop platforms
 
