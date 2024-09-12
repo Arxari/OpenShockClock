@@ -1,6 +1,0 @@
-[test2]
-time = 2024-09-12 14:08:00
-intensity = 22
-duration = 2000
-vibrate_before = True
-
