@@ -179,14 +179,29 @@ if __name__ == '__main__':
 
     alarms = load_config()
 
+    selected_alarms = {}
     if alarms:
         print("Saved alarms:")
         for idx, name in enumerate(alarms, 1):
             print(f"{idx}. {name}")
 
-        load_saved = get_user_input("Do you want to load saved alarms? (yes/no): ").strip().lower()
-        if load_saved not in ['y', 'yes']:
-            alarms = {}
+        load_saved = get_user_input("Do you want to load a saved alarm? (yes/no): ").strip().lower()
+        if load_saved in ['y', 'yes']:
+            while True:
+                alarm_identifier = get_user_input("Enter the number or name of the saved alarm to load: ")
+                if alarm_identifier.isdigit() and 1 <= int(alarm_identifier) <= len(alarms):
+                    alarm_name = list(alarms.keys())[int(alarm_identifier) - 1]
+                    selected_alarms[alarm_name] = alarms[alarm_name]
+                elif alarm_identifier in alarms:
+                    selected_alarms[alarm_identifier] = alarms[alarm_identifier]
+                else:
+                    print("Invalid selection. Please enter a valid number or name.")
+
+                more_load = get_user_input("Do you want to load another saved alarm? (yes/no): ").strip().lower()
+                if more_load not in ['y', 'yes']:
+                    break
+
+    alarms = selected_alarms
 
     while True:
         add_new_alarm = get_user_input("Do you want to add a new alarm? (yes/no): ").strip().lower()
